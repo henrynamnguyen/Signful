@@ -1,0 +1,6 @@
+flask==1.1.2
+flask-socketio==5.1.1
+opencv-python==4.5.2.54
+mediapipe==0.8.7.3
+numpy==1.19.4
+tensorflow==2.5.0

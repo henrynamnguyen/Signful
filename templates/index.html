@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SignFul</title>
+</head>
+<body>
+    
+    <div id="container">
+        <video autoplay="true" id="videoElement" width="1280px" height="720px"></video>
+    </div>
+    
+    <script src="https://cdn.socket.io/4.1.2/socket.io.min.js" integrity="sha384-toS6mmwu70G0fw54EGlWWeA4z3dyJ+dlXBtSURSKN4vyRFOcxd3Bzjj/AoOwY+Rg" crossorigin="anonymous"></script>
+    <script>
+        var socket = io('http://localhost:5000');
+    
+        function capture(video, scaleFactor) {
+            if(scaleFactor == null){
+                scaleFactor = 1;
+            }
+            var w = video.videoWidth * scaleFactor;
+            var h = video.videoHeight * scaleFactor;
+            var canvas = document.createElement('canvas');
+                canvas.width  = w;
+                canvas.height = h;
+            var ctx = canvas.getContext('2d');
+                ctx.drawImage(video, 0, 0, w, h);
+            console.log("During capture");
+            return canvas;
+        } 
+
+        socket.on('connect', function(){
+            console.log("Connected...!", socket.connected)
+        });
+    
+        const video = document.querySelector("#videoElement");
+    
+        if (navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices.getUserMedia({ 
+                video: {width: 1280, height: 720}
+                // video: true
+            }).then(function (stream) {
+                video.srcObject = stream;
+                video.play();
+            })
+            .catch(function (error) {
+                console.log(error)
+                console.log("Something went wrong!");
+            });
+        }
+    
+        const FPS = 30;
+    
+        setInterval(() => {
+    
+            var type = "image/png"
+            var frame = capture(video, 1);
+            var data = frame.toDataURL(type);
+            // console.log(data);
+    
+            socket.emit('image', data);
+        }, 1000/FPS);
+    
+    
+        socket.on('response_back', function(image){
+            console.log(image);
+        });
+    
+    </script>
+
+</body>
+</html>
