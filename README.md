@@ -1,6 +1,9 @@
 # Signful
 Submission for Hack The North 2021 demo linkL: https://devpost.com/software/signful
 
+<img width="673" alt="Screen Shot 2022-05-11 at 10 37 46 PM" src="https://user-images.githubusercontent.com/67188030/167980990-6a9b3d7d-b6ea-4dde-beb4-b2d920c925b8.png">
+
+
 # Inspiration
 There are 70 million hearing-impaired people all over the world, of which 6 million people are in US/Canada.
 
@@ -13,17 +16,23 @@ This is a real pain point that doesn't have any viable solutions yet currently. 
 # Pain point
 From the computer vision perspective, there are two kinds of actions in sign language: single-frame actions and multi-frame actions.
 
-Recognizing single-frame actions are actually very easy, if not the most basic task that can be achieved by the likes of OpenCV or a basic neural network
+Recognizing single-frame actions are actually very easy, if not the most basic task that can be achieved by the likes of OpenCV or a basic neural network. For example: "I Love You"
+
+![signful1](https://user-images.githubusercontent.com/67188030/167980740-146ea008-39df-44bb-adb5-d01257738f11.jpeg)
 
 But what about multi-frame actions?
 
 Currently, there is NO tech in the world whatsoever that can identity multi-frame actions in sign language, even the most common expressions like “Hello” or “Thank you”.
 
+![signful2](https://user-images.githubusercontent.com/67188030/167980766-afb6c4cf-0e18-4ece-bca3-6f3f39e6fa8e.gif)
+![signful3](https://user-images.githubusercontent.com/67188030/167980775-8b72d047-27c2-414b-8759-af82a57d2e20.gif)
+
+
 ## What it does
 Signful allows users to record themselves then uses Computer Vision and Machine Learning to translating their American Sign Language into English texts. AND it is the first one that can identify both single-frame and multi-frame actions in sign language.
 
 ## How we built it
-We used Google Mediapipe API and OpenCV to auto detect and apply keypoints into face, hand and body frames.
+Unlike traditional image recoginition techniques which use pixels, we used Google Mediapipe API and OpenCV to auto detect and apply keypoints into face, hand and body frames.
 
 We collected these keypoints and processed them by putting them into numpy arrays.
 
